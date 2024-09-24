@@ -35,8 +35,7 @@ public class VeiculoService {
     }
 
     public Veiculo update(final String placa, final Veiculo veiculo) {
-        final var entity = veiculoRepository.findById(placa)
-                .orElseThrow(() -> new BusinessException(HttpStatus.NOT_FOUND, String.format("Veiculo de placa %s não encontrado!", placa)));
+        Veiculo entity = findOne(placa);
 
         entity.setModelo(veiculo.getModelo());
         entity.setMarca(veiculo.getMarca());
