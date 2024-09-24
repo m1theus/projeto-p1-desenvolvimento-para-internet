@@ -42,7 +42,7 @@
 					<th>#</th>
 					<th>Descrição</th>
 					<th>Valor</th>
-					<th>Data</th>
+					<th>Data Cadastro</th>
 				</tr>
 				</thead>
 				<tbody id="top-expenses">
@@ -51,6 +51,32 @@
 					<td th:text="${conta.descricao}"></td>
 					<td th:text="${conta.valor}"></td>
 					<td th:text="${#dates.format(conta.dataCriacao, 'dd/MM/yyyy')}"></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="card">
+		<div class="card-header">
+			Top 5 Salários
+		</div>
+		<div class="card-body">
+			<table class="table table-hover">
+				<thead>
+				<tr>
+					<th>#</th>
+					<th>Descrição</th>
+					<th>Valor</th>
+					<th>Data Cadastro</th>
+				</tr>
+				</thead>
+				<tbody id="top-salarios">
+				<tr th:each="func : ${topSalarios}">
+					<td th:text="${func.cpf}"></td>
+					<td th:text="${func.nome}"></td>
+					<td th:text="${func.salario}"></td>
+					<td th:text="${#dates.format(func.dataCriacao, 'dd/MM/yyyy')}"></td>
 				</tr>
 				</tbody>
 			</table>

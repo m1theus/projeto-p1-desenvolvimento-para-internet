@@ -51,7 +51,7 @@ public class ContaDoMesController {
     }
 
     @GetMapping("/delete/{id}")
-    public ModelAndView delete(@PathVariable("cpf") Long id) {
+    public ModelAndView delete(@PathVariable("id") Long id) {
         service.delete(id);
         return index();
     }

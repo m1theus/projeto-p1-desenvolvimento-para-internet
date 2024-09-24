@@ -1,6 +1,5 @@
 package dev.mmartins.gerenciar_funcionario.service;
 
-import dev.mmartins.gerenciar_funcionario.entity.ContasDoMes;
 import dev.mmartins.gerenciar_funcionario.entity.Funcionario;
 import dev.mmartins.gerenciar_funcionario.repository.FuncionarioRepository;
 import org.springframework.stereotype.Service;
@@ -35,4 +34,7 @@ public class FuncionarioService {
         return funcionarioRepository.count();
     }
 
+    public List<Funcionario> findTopSalarios() {
+        return funcionarioRepository.findTop5ByOrderBySalarioDesc();
+    }
 }

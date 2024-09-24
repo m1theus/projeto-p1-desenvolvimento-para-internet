@@ -24,6 +24,7 @@ public class IndexController {
         modelAndView.addObject("contas", contaDoMesService.count());
         modelAndView.addObject("funcionarios", funcionarioService.count());
         modelAndView.addObject("topDespesas", contaDoMesService.findTopContas());
+        modelAndView.addObject("topSalarios", funcionarioService.findTopSalarios());
         return modelAndView;
     }
 }
