@@ -1,0 +1,13 @@
+server:
+  port: ${SERVER_PORT:8081}
+spring:
+  application:
+    name: gerenciar-servicos-veiculos
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:bancodb
+    username: sa
+    password: 123
+  h2:
+    console:
+      enabled: true
