@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="salario" class="form-label">Nome</label>
+                    <label for="salario" class="form-label">Salário</label>
                     <input type="text" class="form-control" id="salario" th:field="*{salario}" placeholder="Informe o salário" maxlength="150"/>
                     <div class="invalid-feedback" th:if="${#fields.hasErrors('salario')}" th:text="${#fields.errors('salario')}"></div>
                 </div>
