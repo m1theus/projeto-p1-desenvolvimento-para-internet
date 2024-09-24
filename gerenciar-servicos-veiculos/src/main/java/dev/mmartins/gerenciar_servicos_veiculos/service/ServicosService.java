@@ -1,5 +1,6 @@
 package dev.mmartins.gerenciar_servicos_veiculos.service;
 
+import dev.mmartins.gerenciar_servicos_veiculos.controller.ServicosRequest;
 import dev.mmartins.gerenciar_servicos_veiculos.controller.exceptions.BusinessException;
 import dev.mmartins.gerenciar_servicos_veiculos.entity.Servico;
 import dev.mmartins.gerenciar_servicos_veiculos.repository.ServicoRepository;
@@ -11,9 +12,11 @@ import java.util.List;
 @Service
 public class ServicosService {
     private final ServicoRepository servicoRepository;
+    private final VeiculoService veiculoService;
 
-    public ServicosService(ServicoRepository servicoRepository) {
+    public ServicosService(final ServicoRepository servicoRepository, final VeiculoService veiculoService) {
         this.servicoRepository = servicoRepository;
+        this.veiculoService = veiculoService;
     }
 
     public List<Servico> findAll() {
@@ -25,16 +28,10 @@ public class ServicosService {
                 .orElseThrow(() -> new BusinessException(HttpStatus.NOT_FOUND, String.format("Servico de id %s não encontrado!", id)));
     }
 
-    public Servico create(final Servico servico) {
-        if (servico.getId() != null) {
-            servicoRepository.findById(servico.getId())
-                    .ifPresent(v -> {
-                        throw new BusinessException(HttpStatus.CONFLICT, String.format("Servico de id %s já cadastrado!", servico.getId()));
-                    });
-
-        }
-
-        return servicoRepository.save(servico);
+    public Servico create(final ServicosRequest servico) {
+        final var saved = servicoRepository.save(new Servico(servico));
+        veiculoService.addNewServico(servico.placaVeiculo(), saved);
+        return saved;
     }
 
     public Servico update(final Long id, final Servico servico) {

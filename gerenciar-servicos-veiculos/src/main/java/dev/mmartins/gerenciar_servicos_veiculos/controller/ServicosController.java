@@ -35,7 +35,7 @@ public class ServicosController {
     }
 
     @PostMapping
-    public ResponseEntity<Servico> create(@RequestBody final Servico servico) {
+    public ResponseEntity<Servico> create(@RequestBody final ServicosRequest servico) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(servico));
     }
 

@@ -1,6 +1,7 @@
 package dev.mmartins.gerenciar_servicos_veiculos.service;
 
 import dev.mmartins.gerenciar_servicos_veiculos.controller.exceptions.BusinessException;
+import dev.mmartins.gerenciar_servicos_veiculos.entity.Servico;
 import dev.mmartins.gerenciar_servicos_veiculos.entity.Veiculo;
 import dev.mmartins.gerenciar_servicos_veiculos.repository.VeiculoRepository;
 import org.springframework.http.HttpStatus;
@@ -49,5 +50,13 @@ public class VeiculoService {
 
     public void delete(String placa) {
         veiculoRepository.delete(findOne(placa));
+    }
+
+    public void addNewServico(final String placa, Servico servico) {
+         veiculoRepository.findById(placa)
+                .ifPresent(v -> {
+                    v.addNewServico(servico);
+                    veiculoRepository.save(v);
+                });
     }
 }
