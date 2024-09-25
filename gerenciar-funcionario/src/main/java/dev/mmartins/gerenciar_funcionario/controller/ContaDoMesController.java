@@ -35,14 +35,18 @@ public class ContaDoMesController {
 
     @PostMapping("/create")
     public ModelAndView create(final ContasDoMes conta, final BindingResult result) {
-
-        if(result.hasErrors()) {
-            return indexCreate(conta);
+        try {
+            if(result.hasErrors()) {
+                return indexCreate(conta);
+            }
+            service.create(conta);
+            return index();
+        } catch (final Exception e) {
+            final ModelAndView modelAndView = new ModelAndView("/contas-create");
+            modelAndView.addObject("conta", new ContasDoMes());
+            modelAndView.addObject("error", "Falha ao salvar conta!");
+            return modelAndView;
         }
-
-        service.create(conta);
-
-        return index();
     }
 
     @GetMapping("/edit/{id}")

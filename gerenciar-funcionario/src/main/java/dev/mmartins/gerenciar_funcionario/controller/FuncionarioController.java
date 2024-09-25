@@ -31,20 +31,28 @@ public class FuncionarioController {
     public ModelAndView indexCreate(final Funcionario funcionario, final String action) {
         final ModelAndView modelAndView = new ModelAndView("/funcionarios-create");
         modelAndView.addObject("funcionario", funcionario);
-        modelAndView.addObject("action", "create");
+        modelAndView.addObject("action", action == null ? "create" : action);
         return modelAndView;
     }
 
     @PostMapping("/funcionarios/create")
     public ModelAndView create(final Funcionario funcionario, final BindingResult result) {
 
-        if(result.hasErrors()) {
-            return indexCreate(funcionario, "create");
+        try {
+            if (result.hasErrors()) {
+                return indexCreate(funcionario, "create");
+            }
+
+            service.create(funcionario);
+
+            return index();
+        } catch (final Exception e) {
+            final ModelAndView modelAndView = new ModelAndView("/funcionarios-create");
+            modelAndView.addObject("funcionario", funcionario);
+            modelAndView.addObject("error", "Falha ao salvar funcionário!");
+            modelAndView.addObject("action", "create");
+            return modelAndView;
         }
-
-        service.create(funcionario);
-
-        return index();
     }
 
     @GetMapping("/funcionarios/edit/{cpf}")
